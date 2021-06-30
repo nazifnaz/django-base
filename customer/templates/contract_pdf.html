@@ -1,0 +1,366 @@
+{% extends "base_pdf.html" %}
+{% load static i18n %}
+
+{% block layout_style %}
+<style type="text/css">
+         @page {
+            size: {{ pagesize|default:"A4" }};
+            margin-left: 2cm;
+            margin-right: 2cm;
+            margin-top: 0.5cm;
+            margin-bottom: 2cm;
+        }
+</style>
+
+{% endblock %}
+
+{% block extra_style %}
+<style type="text/css">
+        html {
+            font-family: "Helvetica", "sans-serif";
+            color: #333333;
+        }
+        body {
+            background-color: #ffffff
+        }
+        p {
+            margin: 0 0 6px 0;
+            font-size: 11pt;
+        }
+        table {
+            line-height: 140%;
+            margin-bottom: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            border-style: hidden;
+            table-layout: fixed;
+        }
+        table td {
+          border: 1px solid #01599A;
+        }
+        table.bordered {
+            border: 1pt solid #01599A;
+        }
+        table.bordered tr {
+            border-right: 1pt solid #01599A;
+        }
+        table.bordered th {
+        border: 1pt solid white;
+        }
+        th {
+            font-size: 12pt;
+            padding: 3px 0;
+            line-height: 1;
+            font-weight: normal;
+            padding-right: 3%;
+            text-align: center;
+        }
+        td {
+            font-size: 12pt;
+            vertical-align: top;
+            padding: 3px 0;
+            padding-right: 3%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        table tr:first-child th:first-child {
+            border-bottom-left-radius: 10px;
+        }
+
+        table tr:first-child th:last-child {
+            border-bottom-right-radius: 10px;
+        }
+        td:last-child { padding-bottom: 0; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .bottom-10 { margin-bottom: 10px; }
+        .bottom-20 { margin-bottom: 20px; }
+        .header { color: #7f7f7f; }
+        .header p { font-size: 13px; line-height: 1.5em; }
+        .header-link { font-weight: bold; text-decoration: none; color: #4F81BD; font-size: 14px; }
+        .logo {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .logo img { max-height:100px;}
+        .recipient { margin-left: 7cm; }
+        .main {
+            padding:20px;
+        }
+        .main h1 {
+            margin: 0;
+            font-weight: normal;
+            color: #626262;
+        }
+        .main h2 {
+            margin: 18px 0 6px 0;
+            font-size: 180%;
+            font-weight: normal;
+        }
+        .main h4 {
+            color:#00599A;
+            font-weight:900;
+            margin-bottom:0;
+        }
+        .info { border: 1px solid #4F81BD; padding: 10px; margin-top: 50px; margin-bottom: 50px; }
+        .info a { color: #4F81BD; text-decoration: none; }
+        .title {
+            color:#00599A;
+            font-weight:900;
+            margin:0;
+            text-align: left;
+        }
+
+        table.total {
+            border: 1px solid #ededed;
+        }
+
+        hr {
+             border-top-color: #01599A;
+        }
+
+        .total td {
+            padding:5px 5px;
+        }
+
+        .total td.totalamount {
+            background-color: #202328;
+            color: white;
+            text-size: 100px
+        }
+
+        table .items th {
+            border-bottom: 3px solid #bfbfc1;
+        }
+
+        table .items td {
+            border-bottom: 1px solid #ededed;
+            border-top: 1px solid #ededed;
+            border-collapse: collapse;
+            padding-top: 50%;
+            padding-bottom: -50%;
+            padding-left:20%;
+            color: #000;
+        }
+        table .items  tr:first-child > td { border:none;}
+
+         table .items th {
+            color: #000;
+            text-align:right;
+        }
+
+        .item_name {
+            color: black;
+        }
+
+        .bottomlogo{
+            zoom: 50%;
+        }
+
+        .shade {
+            background-color: #f2f2f2 !important;
+        }
+
+        .main_heading {
+            background-color: white;
+            text-align: left;
+        }
+
+        .main_heading p {
+            font-size:20px;
+            color: #00599A;
+        }
+
+        .light_grey {
+            color:#8c8c8c;
+            font-weight:500;
+        }
+
+        table.address {
+            margin-left:60px;
+        }
+        .items-total {
+            display: inline-block;
+            padding-right: 180px;
+        }
+        .blue-background {
+            background-color: #01599A !important;
+            color: white;
+            font-family: Apple Symbols;
+        }
+        .alignleft,
+        .alignright {
+          display: inline-block;
+          background: red;
+        }
+        .alignleft {
+          padding-left: 100px;
+        }
+        .alignright {
+          padding-right: 100px;
+        }
+        table.headers{
+        border:none;
+        }
+        table.headers td {
+        border:none;
+        text-align:left;
+        line-height:1;
+        }
+        table.headers tr {
+        border-bottom:none;
+        }
+
+
+
+
+
+
+
+</style>
+{% endblock %}
+
+{%block page_header%}
+<div id="page-header">
+    <div class="header">
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% with contract as obj %}
+<div id="content">
+    <div class="main">
+        <table>
+            <tr style="border-bottom:1pt solid #01599A;">
+                <th class="main_heading">
+                    <p class="align-left" style="padding-right:20px;"><strong>CONTRACT</strong> #{{obj.id}}</p>
+                    {% if obj.reference %}
+                    <p class="light_grey">Reference No: {{ obj.reference }}</p>
+                    {% endif %}
+                </th>
+                <th class="text-right" style="width:5cm">
+                    {% if obj.account.logo %}
+                    <p class="logo"><img src='{{ obj.account.logo.url }}'/>
+                    </p>
+                    {% else %}
+                    <h4>Account: {{ obj.account.name }}</h4><br>
+                    {% endif %}
+                </th>
+            </tr>
+        </table>
+        <table class="headers">
+            <tr>
+                <th style="text-align:left;">
+                    <p class="light_grey">Customer Name</p>
+                </th>
+                <th>
+                    <p class="light_grey">Total Amount</p>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <span style="color:#01599A;font-weight:600;">{{ obj.customer.name | title }}</span>
+
+                </td>
+                <td style="text-align:center;color:#01599A;">
+                    {{obj.total}} {{obj.currency.code}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <span>&#9742; {{ obj.customer.get_contact_number_with_isd}}</span>
+                </td>
+                <td><span></span></td>
+            </tr>
+            <tr>
+                <td>
+                    <span>&#9993; {{ obj.customer.email }}</span>
+                </td>
+                <td><span></span></td>
+            </tr>
+
+        </table>
+        <table class="headers">
+            <tr class="title" style="border-bottom:1pt solid #01599A">
+            <td style="margin:0;text-align: left;">Payment Plans</td><td><span></span></td><td><span></span></td>
+            </tr>
+            <tr>
+                <td>Payments: {{ obj.payment_plan.count}}</td>
+                <td>Amount Pending
+                </td>
+                <td>Amount Paid
+                </td>
+            </tr>
+            <tr>
+                <td><span></span></td>
+                <td style="color:crimson;">
+                    {{obj.amount_due}} {{obj.currency.code}}
+                </td>
+                <td style="color:blue;">
+                    {{obj.amount_paid}} {{obj.currency.code}}
+                </td>
+            </tr>
+        </table>
+        <table class="bordered text-center">
+            <tr class="blue-background">
+                <th>S No.</th>
+                <th>Payment No</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Payment Date</th>
+                <th>Payment Status</th>
+            </tr>
+            {% for payment in obj.payment_plan %}
+            <tr>
+                <td>{{ forloop.counter}}</td>
+                <td>#{{ payment.id }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>{{ payment.due_date | date:'d-M-Y' }}</td>
+                {% if payment.paid_date %}
+                <td>
+                    {{ payment.paid_date | date:'d-M-Y' }}
+                </td>
+                    {% else %}
+                <td>---</td>
+                    {% endif %}
+
+                {% if payment.payment_status_id == payment_status.UNPAID %}
+                <td style="color:crimson;"> Unpaid</td>
+                {% elif payment.payment_status_id == payment_status.PAID %}
+                <td style="color:#01599A;;"> paid</td>
+                {% else %}
+                <td> {{ payment.payment_status_id }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="headers title">
+            <tr><td>Items</td></tr>
+        </table>
+        <table class="bordered text-center">
+
+                <tr class="blue-background">
+                    <th>S No.</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                </tr>
+                {% for item in contract.items.all %}
+                <tr >
+                    <td>{{ forloop.counter}}</td>
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.unit_price }}</td>
+                    <td> {{ item.price }}</td>
+                    <td>{{ item.description }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+</div>
+{% endwith %}
+{% endblock %}

@@ -1,0 +1,7 @@
+<h2>Customer List <br></h2>
+
+{% for item in customer %}
+
+{{item.name}} -{{item.first_name}} - {{item.last_name}} - {{item.area.name}}<br>
+
+{% endfor %}

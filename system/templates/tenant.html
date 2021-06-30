@@ -1,0 +1,14 @@
+<h2>Tenant List</h2>
+
+{% for item in client %}
+{{item.schema_name}}
+
+{% endfor %}
+
+<h2>All Schema Customer List <br></h2>
+
+{% for item in customer %}
+
+{{item.name}} -{{item.first_name}} - {{item.last_name}} - {{item.area.name}}<br>
+
+{% endfor %}

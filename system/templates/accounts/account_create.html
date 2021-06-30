@@ -1,0 +1,64 @@
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{form.as_p}}-->
+<!--    <input type="submit" value="Submit">-->
+<!--</form>-->
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>HTML Forms</h2>
+
+<form action="#" id="contact_form">
+
+      <label for="fname">Email:</label><br>
+      <input type="text" id="email" name="email" value="abc@abc.com"><br>
+
+      <label for="fname">Mobile:</label><br>
+      <input type="text" id="mobile" name="mobile" value="000000000"><br>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="first_name" value="John"><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="last_name" value="Doe"><br><br>
+
+       <label for="message">Message:</label><br>
+      <textarea type="text" id="message" name="message" value="Doe"></textarea><br><br>
+
+
+      <input type="button" value="Submit" id="contact_submit">
+</form>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+  $("#contact_submit").click(function(){
+
+			var data = $('#contact_form').serialize()  // id of contact =  contact_form
+
+            var email = $("#email").val()
+            var template_id = 2
+            var language = "en"
+            var channel = "EMAIL"
+			var url = "/api/messaging/send-message/?template_id="+template_id+"&recipient="+email+"&language="+language+"&channel="+channel
+	        console.log(url)
+	        $.ajax({
+            url: url,
+            method: "post",
+            data: data,
+            success: function (data) {
+                    console.log(data);
+                 },
+
+              })
+
+
+  });
+});
+</script>
+
+</body>
+</html>

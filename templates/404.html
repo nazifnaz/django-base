@@ -1,0 +1,25 @@
+{% load i18n static %}
+<html>
+    <head>
+        <title>{% trans 'Page not Found.' %}</title>
+        <style>
+            body {
+                background: url({% static "microapps/images/404.jpg"%});
+                background-size: cover;
+                background-position:center center;
+            }
+            content {
+                positive: absolute;
+                top:30%;
+                left:30%;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <h1>Page not found.</h1>
+            <p>Are you sure you reached correct URL?</p>
+        </div>
+    </body>
+</html>

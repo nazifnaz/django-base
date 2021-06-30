@@ -1,0 +1,115 @@
+from munch import Munch
+
+PAYMENT_STATUS = Munch({
+    'UNPAID': 1,
+    'PARTIALLY_PAID': 2,
+    'PAID': 3,
+    'PARTIAL_REFUND_REQUESTED': 4,
+    'TO_BE_REFUNDED': 5,
+    'REFUNDED': 6,
+    'CANCELLED': 7,
+})
+
+CART_STATUS = Munch({
+    'CART': 1,
+    'INITIATED': 2,
+    'ORDER': 3,
+    'FAIL': 4
+})
+
+CUSTOMER_TYPE = Munch({
+    'GUEST_CUSTOMER': 1,
+    'REGISTER_CUSTOMER': 2,
+})
+
+ACCOUNT_STATUS_TYPE = Munch({
+    'INITIATED': 1,
+    'PROCESSING': 2,
+    'COMPLETED': 3,
+    'FAIL': 4
+})
+
+CHANEL_TYPE = Munch({
+    "PUSH": 1,
+    "EMAIL": 2,
+    "SMS": 3,
+    "INTERNATIONAL_SMS": 4,
+    "SEND_GRID": 5,
+})
+
+INVOICE_MODE = Munch({
+    'INVOICE': 1,
+    'CART': 2,
+})
+
+DISCOUNT_ON = Munch({
+    "CART_AMOUNT": 1,
+    "DELIVERY_CHARGES": 2,
+    "PRODUCT_AMOUNT": 3,
+    "INTERNATIONAL_DELIVERY": 4,
+    "LOCAL_DELIVERY": 5,
+})
+
+DEFAULT_COUNTRY_CODE = "KW"
+DEFAULT_CURRENCY_CODE = "KWD"
+DEFAULT_AREA = 1
+
+SMS_USERNAME = ""
+SMS_PASSWORD = ""
+SMS_TOKEN = ""
+SMS_URL = ""
+DEFAULT_EMAIL = ""
+
+CUSTOMIZABLE_MODELS = [
+    'customer',
+]
+
+NOTIFICATION_EVENT = Munch({
+    'ORDER_CREATE': 1,
+    'CUSTOMER_PICKUP_REQUEST': 2,
+    'CUSTOMER_NOTIFY_DELIVERY': 3,
+})
+
+
+PRODUCT_SET_TYPE = Munch({
+    "TAG": 1,
+    "PRODUCT_TYPE": 2,
+    "CATEGORY": 3,
+    "SUBCATEGORY": 4,
+    "BRAND": 5,
+    "PRICE_RANGE": 6,
+    "NAME": 7,
+})
+
+DOWNLOAD_STATUS = Munch({
+    'INITIATED': 1,
+    'IN_QUEUE': 2,
+    'PROCESSING': 3,
+    'PROCESSED': 4,
+    'FAILED': 5,
+    'CANCELLED': 6,
+})
+
+DEFAULT_COUNTRY_ID = 204
+ACCOUNT_ROLES = {
+    ''
+}
+DOWNLOAD_HANDLERS = Munch({
+    'MANAGE_CART': 1,
+    'MANAGE_CUSTOMER': 2,
+    'MANAGE_ORDER': 3,
+})
+
+EXTERNAL_PAYMENT_PAYDO_ID = 193
+
+CACHE_TIMEOUT = 1 * 60
+
+FULFILLMENT_STATUS = Munch({
+    'PENDING': 1,
+    'FULFILLED': 2,
+    'DELIVERED': 3,
+    'FAILED': 4,
+    'CANCELLED': 5
+})
+
+DOWNLOAD_JOB_LIMIT = 1000
